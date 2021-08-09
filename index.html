@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도제 시작</title>
+</head>
+<body>
+    <script>
+        //일정시간 간격마다 특정함수를 게속 실행
+        ///.repeat() = 반복기
+        // ` = 억음부호
+        //setInterval = (함수,시간)
+        //settimeout = 시간 반복 멈추기
+        let log = console.log;
+        
+        function dsaa(a,b){
+            return a + b;
+        }
+        let sum = dsaa(10, 20);
+
+        log(sum);
+        // let num = 0;
+        // function 인터벌(){
+        //     let str = ".";
+        //     for(let i=0; i<num; i++){
+        //     str += ".";
+        // }
+        //     log(`박인붕${str}`);
+        //     num++;
+        // }
+        let num = 1;
+        function 인터벌(){
+            let str = ".";
+            log(`박인붕${".".repeat(num)}`);
+            num++;
+            if(num >=10){
+                clearInterval(id);
+            }
+        }
+
+        id = setInterval(인터벌, 500);
+
+    </script>
+</body>
+</html>
