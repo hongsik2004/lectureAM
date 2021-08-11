@@ -6,44 +6,158 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>0114박홍식</title>
+    <script src="jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <div class="container">
+        <div class="watch">
+            <div class="hour">
+                <div class="box">00</div>
+                <div class="box">01</div>
+            </div>
+            <div class="minute">
+                <div class="box">00</div>
+                <div class="box">01</div>
+            </div>
+            <div class="second">
+                <div class="box">00</div>
+                <div class="box">01</div>
+            </div>
+        </div>
+        <div class="control">
+            <button id="test">start</button>
+            <button id="test2">stop</button>
+        </div>
+    </div>
+
     <script>
-        //일정시간 간격마다 특정함수를 게속 실행
-        ///.repeat() = 반복기
-        // ` = 억음부호
-        //setInterval = (함수,시간)
-        //settimeout = 시간 반복 멈추기
-        let log = console.log;
+        //함수에 이름이 없을시 익명함수 예:$(".hour").on("click",function(){ 
+        // alert("시간이 클릭되었어요");
+        // });
+        // $(".hour").on("click",function(){
+        //     alert("시간이 클릭되었어요");
+        // });
+        // $(".minute").on("click",function(){
+        //     alert("분이 클릭되었어요");
+        // });
+        // $(".second").on("click",function(){
+        //     alert("초이 클릭되었어요");
+        // });
+        let now = new Date();
+        let h = ("00" + now.getHours()).substr(-2);
+        let m = ("00" + now.getMinutes()).substr(-2);
+        let s = ("00" + now.getSeconds()).substr(-2);
 
-        function dsaa(a, b) {
-            return a + b;
-        }
-        let sum = dsaa(10, 20);
+        $(".hour > .box").eq(0).text(h);
+        $(".minute > .box").eq(0).text(m);
+        $(".second > .box").eq(0).text(s);
+        let 인터벌 = function() {
+            let now = new Date();
+            let h = ("00" + now.getHours()).substr(-2);
+            let m = ("00" + now.getMinutes()).substr(-2);
+            let s = ("00" + now.getSeconds()).substr(-2);
 
-        log(sum);
-        // let num = 0;
-        // function 인터벌(){
-        //     let str = ".";
-        //     for(let i=0; i<num; i++){
-        //     str += ".";
-        // }
-        //     log(`박인붕${str}`);
-        //     num++;
-        // }
-        let num = 1;
+            $(".hour > .box").eq(1).text(h);
+            $(".minute > .box").eq(1).text(m);
+            $(".second > .box").eq(1).text(s);
 
-        function 인터벌() {
-            let str = ".";
-            log(`박인붕${".".repeat(num)}`);
-            num++;
-            if (num >= 10) {
-                clearInterval(id);
+            if (m == "00") {
+                $(".hour > .box").eq(1).animate({
+                    "top": 0
+                }, 500);
             }
-        }
+            if (s == "00") {
+                $(".minute > .box").eq(1).animate({
+                    "top": 0
+                }, 500);
+            }
+            $(".second > .box").eq(1).animate({
+                "top": 0
+            }, 500);
+            if (m == "00") {
+                $(".hour > .box").eq(0).animate({
+                    "top": "-100%"
+                }, 500);
+            }
+            if (s == "00") {
+                $(".minute > .box").eq(0).animate({
+                    "top": "-100%"
+                }, 500);
+            }
+            $(".second > .box").eq(0).animate({
+                "top": "-100%"
+            }, 500);
 
-        id = setInterval(인터벌, 500);
+            setTimeout(function() {
+                $(".hour > .box").eq(0).text(h);
+                $(".minute > .box").eq(0).text(m);
+                $(".second > .box").eq(0).text(s);
+                if (m == "60") {
+                    $(".hour > .box").eq(0).css({
+                        "top": 0
+                    });
+                }
+                if (s == "60") {
+                    $(".minute > .box").eq(0).css({
+                        "top": 0
+                    });
+                }
+                $(".second > .box").eq(0).css({
+                    "top": 0
+                });
+                if (m == "60") {
+                    $(".hour > .box").eq(1).css({
+                        "top": "100%"
+                    });
+                }
+                if ($(".second") == 60) {
+                    $(".minute > .box").eq(1).css({
+                        "top": "100%"
+                    });
+                }
+                $(".second > .box").eq(1).css({
+                    "top": "100%"
+                });
+            }, 600);
+        }
+        let id = setInterval(인터벌, 1000);
+        let isClick = true;
+        $("#test").on("click", function() {
+            if (isClick) {
+                return;
+            }
+            isClick = true;
+            id = setInterval(인터벌, 1000);
+        });
+        $("#test2").on("click", function() {
+            if (isClick) {
+                isClick = false;
+            }
+            clearInterval(id);
+        });
+        // document.onclick = function(e){
+        //     if($("#test")){
+        //         clearInterval(id);
+        //     }else if($("#test2")){
+        //         id = setInterval(인터벌,1000);
+        //     }
+        // };
+
+
+
+
+        // function 합(){
+        //     let now = new Date();
+        //     let h = ("00"+ now.getHours()).substr(-2);
+        //     let m = ("00"+ now.getMinutes()).substr(-2);
+        //     let s = ("00"+ now.getSeconds()).substr(-2);
+        //     console.clear();
+        //     console.log(`${h}시${m}분${s}초`); 
+
+        // }
+        // setInterval(합,1000);
     </script>
 </body>
 
